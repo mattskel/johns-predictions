@@ -4,7 +4,7 @@ const googleSheetsService = require('../services/googleSheetsService.js')
 const range = 'users'; // This is the spreadsheet name
 
 router.get('/', function(req, res) {
-  res.render('login');
+  res.render('login', {baseUrl: req.baseUrl});
 });
 
 router.post('/', function(req, res) {

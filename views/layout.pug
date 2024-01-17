@@ -7,6 +7,10 @@ html
   body
     div.menu-container
       h1 Johns predictions
-      a(href='/login') logout
+      case baseUrl
+        when '/login'
+          a(href='/signup') signup
+        default
+          a(href='/login') logout
 
     block content
