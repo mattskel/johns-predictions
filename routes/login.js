@@ -9,7 +9,6 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   var email = req.body.email;
-  var password = req.body.password;
   googleSheetsService.getRange(range)
     .then((response) => {
       const status = response.status;
@@ -20,13 +19,26 @@ router.post('/', function(req, res) {
 
       const data = response.data;
       const [header, ...users] = data.values;
-      const foundUser = users.find((user) => user[0] === email && user[1] === password); 
+      const foundUser = users.find((user) => user[0] === email); 
       if (!foundUser) {
-        res.status(400).send('Login failed. Email or password is incorrect');
+        res.status(400).send('Login failed. Email is incorrect');
         return;
       }
 
-      res.redirect('/');
+      req.session.regenerate(function (err) {
+        if (err) next(err)
+
+        // store user information in session, typically a user id
+        req.session.user = email 
+
+        // save the session before redirection to ensure
+        // page load does not happen before session is saved
+        req.session.save(function (err) {
+          if (err) return next(err)
+
+          res.redirect('/');
+        })
+      })
     })
     .catch((error) => {
       console.log('error', error);
