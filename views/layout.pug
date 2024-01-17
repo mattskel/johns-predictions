@@ -10,6 +10,8 @@ html
       case baseUrl
         when '/login'
           a(href='/signup') signup
+        when '/signup'
+          a(href='/login') login
         default
           a(href='/login') logout
 

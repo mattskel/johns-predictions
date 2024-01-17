@@ -8,6 +8,7 @@ var session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var signupRouter = require('./routes/signup');
 
 var app = express();
 
@@ -38,6 +39,7 @@ function isLoggedIn(req, res, next) {
 
 // No check required for the login page
 app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 
 // From here on all routes require the user to be logged in
 app.use(isLoggedIn);
