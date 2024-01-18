@@ -2,6 +2,6 @@ extends layout
 
 block content
   ul
-    li 2024
-    li 2023
-    li 2022
+    each year in years
+      li 
+        a(href=`/predictions/${year.value}/${year.status}`) #{year.value}
