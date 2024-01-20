@@ -86,7 +86,6 @@ router.get('/:year/results', function(req, res) {
     });
   
   res.render('results', {tableHeaders, tableRows, answers, questions, predictions, actuals});
-  // res.send('Results go here');
 });
 
 module.exports = router;

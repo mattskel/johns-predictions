@@ -1,6 +1,9 @@
 body {
+  /*
   padding: 50px;
+  */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
 }
 
 a {
@@ -11,18 +14,31 @@ div#navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  padding: 20px;
+  background: white;
+  right: 0;
+  left: 0;
+  z-index: 99;
+
+  a.header {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+div#main {
+  padding: 125px 20px 0px 20px; 
 }
 
 table.results {
-  margin: 0;
-  border: none;
-  border-collapse: separate;
-  border-spacing: 0;
-  table-layout: fixed;
+  text-align: left;
   border: 1px solid black;
+  border-collapse: seperate;
+  border-spacing: 0;
 
   td, th {
-    min-width: 30px;
     border: 1px solid black;
     padding: 0.25rem;
   }
@@ -30,16 +46,11 @@ table.results {
   thead th {
     padding: 3px;
     position: sticky;
-    top: 0;
+    top: 111px;
     z-index: 1;
     width: 25vw;
     background: white;
     white-space: nowrap;
-  }
-
-  tbody th {
-    text-align: left;
-    position: relative;
   }
 
   thead th:first-child {
@@ -51,12 +62,19 @@ table.results {
   tbody th {
     position: sticky;
     left: 0;
-    z-index: 1;
-  } 
+    background: white;
+  }
 
-  [role="region"] {
-    width: 100%;
-    max-height: 98vh;
-    overflow: auto;
+  tbody td.correct {
+    background: lightgreen;
+  }
+
+  tbody td.incorrect {
+    background: lightpink;
+  }
+
+  tbody td.winner {
+    background: yellow;
   }
 }
+

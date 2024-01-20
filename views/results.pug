@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div(role="region")
+  div
     table(class='results')
       thead
         tr
@@ -14,4 +14,9 @@ block content
             th= question
             td #{actuals[index]}
             each prediction in predictions
-              td #{prediction[index]}
+              if question==="Totals"
+                td(class=prediction[index]===answers[index] ? "winner" : "") #{prediction[index]}
+              else  
+                td(class=prediction[index]===answers[index] ? "correct" : "incorrect") #{prediction[index]}
+
+

@@ -6,7 +6,8 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
   body
     div#navbar
-      h1 Johns predictions
+      h1
+        a(class='header' href='/') Johns predictions
       case baseUrl
         when '/login'
           a(href='/signup') signup
@@ -15,7 +16,6 @@ html
         default
           a(href='/login') logout
 
-    div.content
+    div#main
       block content
 
-    script(src='/javascripts/script.js')
