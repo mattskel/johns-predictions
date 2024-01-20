@@ -65,25 +65,27 @@ router.post('/:year/submit', function(req, res, next) {
 
 router.get('/:year/results', function(req, res) {
   const email = req.session.user;
-  const predictions = req.predictions;
+  const predictions = req.predictions
+    .map((prediction) => prediction.slice(1));
+
   const questions = req.questions;
   const answers = req.answers;
-  const users = predictions
+  const actuals = req.actuals;
+  const users = req.predictions
     .map((prediction) => prediction[0])
     .map((email) => email.split('@')[0]);
       
-  const tableHeaders = ['', 'Answer', 'Actual', ...users];
+  const tableHeaders = ['', 'Answer', ...users];
   const tableRows = questions
     .map((question, index) => {
-      const answer = answers[index];
-      const actual = '';
+      const actual = actuals[index];
       const userPredictions = predictions
         .map((prediction) => prediction[index + 1]);
 
-      return [question, answer, actual, ...userPredictions];
+      return [question, actual, ...userPredictions];
     });
-    
-  res.render('results', {tableHeaders, tableRows});
+  
+  res.render('results', {tableHeaders, tableRows, answers, questions, predictions, actuals});
   // res.send('Results go here');
 });
 

@@ -9,11 +9,9 @@ block content
             th= header
 
       tbody
-        each row in tableRows
+        each question, index in questions 
           tr
-            each value, index in row
-              case index
-                when 0
-                  th= value
-                default
-                  td= value
+            th= question
+            td #{actuals[index]}
+            each prediction in predictions
+              td #{prediction[index]}

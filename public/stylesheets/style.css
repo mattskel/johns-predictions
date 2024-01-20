@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 
-.menu-container {
+div#navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
