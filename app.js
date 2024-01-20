@@ -31,14 +31,11 @@ app.use(session({
 
 // middleware to test if user logged in 
 function isLoggedIn(req, res, next) {
-  /*
   if (req.session && req.session.user) {
     return next();
   } else {
     res.redirect('/login');  
   }
-  */
-  return next();
 }
 
 // No check required for the login page
