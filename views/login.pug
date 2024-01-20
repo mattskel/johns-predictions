@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  form(action=baseUrl, method="post")
+    label(for="email") email:
+    br
+    input(type="text", id="email", name="email", required)
+
+    br
+    br
+    input(type="submit", value="Submit")

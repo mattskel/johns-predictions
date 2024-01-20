@@ -1,5 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  ul
+    each year in years
+      li 
+        a(href=`/predictions/${year.value}/${year.status}`) #{year.value}

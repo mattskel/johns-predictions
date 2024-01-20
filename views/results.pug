@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  div
+    table(class='results')
+      thead
+        tr
+          each header in tableHeaders 
+            th= header
+
+      tbody
+        each question, index in questions 
+          tr
+            th= question
+            td #{actuals[index]}
+            each prediction in predictions
+              if question==="Totals"
+                td(class=prediction[index]===answers[index] ? "winner" : "") #{prediction[index]}
+              else  
+                td(class=prediction[index]===answers[index] ? "correct" : "incorrect") #{prediction[index]}
+
+

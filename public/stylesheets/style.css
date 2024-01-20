@@ -1,8 +1,80 @@
 body {
+  /*
   padding: 50px;
+  */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
 }
 
 a {
   color: #00B7FF;
 }
+
+div#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  padding: 20px;
+  background: white;
+  right: 0;
+  left: 0;
+  z-index: 99;
+
+  a.header {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+div#main {
+  padding: 125px 20px 0px 20px; 
+}
+
+table.results {
+  text-align: left;
+  border: 1px solid black;
+  border-collapse: seperate;
+  border-spacing: 0;
+
+  td, th {
+    border: 1px solid black;
+    padding: 0.25rem;
+  }
+
+  thead th {
+    padding: 3px;
+    position: sticky;
+    top: 111px;
+    z-index: 1;
+    width: 25vw;
+    background: white;
+    white-space: nowrap;
+  }
+
+  thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+  }
+
+  tbody th {
+    position: sticky;
+    left: 0;
+    background: white;
+  }
+
+  tbody td.correct {
+    background: lightgreen;
+  }
+
+  tbody td.incorrect {
+    background: lightpink;
+  }
+
+  tbody td.winner {
+    background: yellow;
+  }
+}
+
