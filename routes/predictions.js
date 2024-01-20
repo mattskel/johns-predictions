@@ -13,7 +13,7 @@ router.param('year', function(req, res, next, year) {
       }
 
       const data = response.data;
-      const [questions, options, answers = [], actual = [], ...predictions] = data.values;
+      const [questions, options, answers = [], actuals = [], ...predictions] = data.values;
       if (!questions || !options) {
         res.status(400).send('Something went wrong');
         return;
@@ -25,9 +25,9 @@ router.param('year', function(req, res, next, year) {
       req.options = options.slice(1)
         .map((str) => str.split(','));
 
-      req.answers = actual.slice(1);
+      req.answers = answers.slice(1);
+      req.actuals = actuals.slice(1);
       req.predictions = predictions;
-
       next();
     })
     .catch((error) => {
@@ -61,6 +61,30 @@ router.post('/:year/submit', function(req, res, next) {
   googleSheetsService.appendRange(year, values) 
   res.redirect('/');
 
+});
+
+router.get('/:year/results', function(req, res) {
+  const email = req.session.user;
+  const predictions = req.predictions;
+  const questions = req.questions;
+  const answers = req.answers;
+  const users = predictions
+    .map((prediction) => prediction[0])
+    .map((email) => email.split('@')[0]);
+      
+  const tableHeaders = ['', 'Answer', 'Actual', ...users];
+  const tableRows = questions
+    .map((question, index) => {
+      const answer = answers[index];
+      const actual = '';
+      const userPredictions = predictions
+        .map((prediction) => prediction[index + 1]);
+
+      return [question, answer, actual, ...userPredictions];
+    });
+    
+  res.render('results', {tableHeaders, tableRows});
+  // res.send('Results go here');
 });
 
 module.exports = router;

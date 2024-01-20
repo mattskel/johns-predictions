@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  div(role="region")
+    table(class='results')
+      thead
+        tr
+          each header in tableHeaders 
+            th= header
+
+      tbody
+        each row in tableRows
+          tr
+            each value, index in row
+              case index
+                when 0
+                  th= value
+                default
+                  td= value
