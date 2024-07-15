@@ -16,7 +16,9 @@ block content
             each prediction in predictions
               if question==="Totals"
                 td(class=prediction[index]===answers[index] ? "winner" : "") #{prediction[index]}
-              else  
+              else if answers[index]
                 td(class=prediction[index]===answers[index] ? "correct" : "incorrect") #{prediction[index]}
+              else
+                td #{prediction[index]}
 
 
