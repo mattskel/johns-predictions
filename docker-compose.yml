@@ -3,8 +3,9 @@ services:
     build: .
     ports:
       - "1337:1337"
-    env_file:
-      - .env
+    environment:
+      - PORT=1337
+      - GOOGLE_APPLICATION_CREDENTIALS=secrets/google-api-key.json
     volumes:
       - ./secrets:/app/secrets
     restart: unless-stopped
