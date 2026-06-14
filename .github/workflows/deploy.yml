@@ -1,23 +1,46 @@
-name: GitHub Actions demo
+name: Deploy to droplet
 
 on:
   push:
     branches: [master]
+  workflow_dispatch:
+
+# Cancel an in-progress deploy if a newer commit lands on master.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
 
 jobs:
-  Test-Github-Actions:
+  deploy:
+    name: Deploy to droplet
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello testing"
-      - name: SSH into droplet
+      - name: Start deploy
+        run: echo "Deploying ${{ github.sha }} to production"
+
+      - name: SSH into droplet and deploy
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
+            set -euo pipefail
+
+            echo "==> Pulling latest code"
             cd /root/johns-predictions
-            git pull origin master
+            git fetch origin master
+            git reset --hard origin/master
+
+            echo "==> Writing Google credentials"
+            mkdir -p secrets
             echo '${{ secrets.GOOGLE_CREDENTIALS }}' > secrets/google-api-key.json
-            docker compose down
+
+            echo "==> Rebuilding containers"
+            docker compose down --remove-orphans
             docker compose up -d --build
+
+            echo "==> Pruning old images"
+            docker image prune -f
+
+            echo "==> Deploy complete"
