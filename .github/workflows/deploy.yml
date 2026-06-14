@@ -16,4 +16,7 @@ jobs:
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
-            ls -al
+            cd /root/johns-predictions
+            git pull origin master
+            docker compose down
+            docker compose up -d --build
