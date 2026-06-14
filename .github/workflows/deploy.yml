@@ -8,4 +8,4 @@ jobs:
   Test-Github-Actions:
     runs-on: ubuntu-latest
     steps:
-      -run: echo "Hello testing"
+      - run: echo "Hello testing"
