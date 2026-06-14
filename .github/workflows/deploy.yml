@@ -2,7 +2,7 @@ name: GitHub Actions demo
 
 on:
   push:
-    branches: master
+    branches: [master]
 
 jobs:
   Test-Github-Actions:
@@ -11,8 +11,9 @@ jobs:
       - run: echo "Hello testing"
       - name: SSH into droplet
         uses: appleboy/ssh-action@v1
-        host: ${{ secrets.DROPLET_IP }}
-        username: root
-        key: ${{ secrets.DROPLET_SSH_KEY }}
-        script: |
-          ls -al
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: root
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            ls -al
